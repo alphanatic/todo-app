@@ -1,4 +1,6 @@
 
+import { Backlog } from "./components/Backlog"
+import { Footer } from "./components/Footer"
 import { Header } from "./components/Header"
 import { Tabs } from "./components/Tabs"
 import { TodoInput } from "./components/TodoInput"
@@ -22,6 +24,8 @@ function App() {
   //  [statefulVariable, setterFunction] the later is used to update or modify the value associated
   //  = useState destructures the array
   const [selectedTab, setSelectedTab] = useState('Open')
+  // which page to show, read from the end of the URL: '#backlog' shows the backlog, anything else the todos
+  const [page, setPage] = useState(window.location.hash)
 
 
 
@@ -69,6 +73,25 @@ function App() {
     setTodos(db.todos)
   }, [])
 
+  // footer links change the hash; listen for that and switch page
+  useEffect(() => {
+    function handleHashChange() {
+      setPage(window.location.hash)
+      window.scrollTo(0, 0)
+    }
+    window.addEventListener('hashchange', handleHashChange)
+    return () => window.removeEventListener('hashchange', handleHashChange) // cleanup when App unmounts
+  }, [])
+
+  if (page === '#backlog') {
+    return (
+      <>
+        <Backlog />
+        <Footer page={page} />
+      </>
+    )
+  }
+
 
 
 
@@ -83,6 +106,7 @@ function App() {
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} todos={todos} />
       <TodoList handleCompleteTodo={handleCompleteTodo} handleDeleteTodo={handleDeleteTodo} selectedTab={selectedTab} todos={todos} />
       <TodoInput handleAddTodo={handleAddTodo} />
+      <Footer page={page} />
     </>
   )
 }

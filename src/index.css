@@ -152,3 +152,53 @@
       gap: 1rem;
     }
   }
+  /* Main footer, styled like the chalk book's: fixed to the bottom, centred links that wrap */
+  #root {
+    padding-bottom: 4rem; /* keeps the last todo from hiding behind the footer */
+  }
+
+  .main-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    padding: 4px 16px;
+    background: #1f1e1d;
+    border-top: 1px solid #3d3d3a;
+  }
+
+  .main-footer ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2px 6px;
+    padding: 0; /* fanta.css gives every ul a left padding */
+    list-style: none;
+  }
+
+  /* links take turns: blue, pink, green, yellow */
+  .main-footer li:nth-child(4n+1) { --c: #A9D3EE; }
+  .main-footer li:nth-child(4n+2) { --c: #F4B6C2; }
+  .main-footer li:nth-child(4n+3) { --c: #B8E2C8; }
+  .main-footer li:nth-child(4n+4) { --c: #F6E3A1; }
+
+  .main-footer-btn {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--c);
+    text-decoration: none;
+  }
+
+  .main-footer-btn:hover,
+  .main-footer-btn[aria-current] {
+    background: #30302e;
+  }
+
+  .main-footer-btn[aria-current] {
+    box-shadow: inset 0 -2px 0 var(--c); /* the page you're on */
+  }
