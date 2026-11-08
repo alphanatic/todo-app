@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+# Always private: notes, scratch and local-only files
+.default/
+# Anything with mcp in its name, any case, at any depth: MCP tool output such as .playwright-mcp/
+*[mM][cC][pP]*
